@@ -1,2 +1,2 @@
-# torch-tensorrt
-Seamless TensorRT Acceleration for Torch Tensors in Rust
+# easy-tensorrt
+Seamless TensorRT integration with PyTorch or cudarc in Rust
