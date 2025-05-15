@@ -1,0 +1,19 @@
+[package]
+name = "easy-tensorrt-sys"
+version = "0.2.0"
+authors = ["Burton Qin <bobbqq@163.com>"]
+description = "Rust binding to NVIDIA TensorRT, forked from tensorrt-rs-sys"
+repository = "https://github.com/BurtonQin/easy-tensorrt"
+readme = "README.md"
+keywords = ["tensorrt", "nvidia", "cuda", "ffi"]
+license = "MIT/Apache-2.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cudarc = { version = "0.16.3", features = ["driver", "cuda-version-from-build-system", "dynamic-linking"], default-features=false }
+cxx = { version = "1", features = ["c++17", "c++14"] }
+
+[build-dependencies]
+cxx-build = "1"
