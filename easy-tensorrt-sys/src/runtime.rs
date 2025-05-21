@@ -1,6 +1,6 @@
 use crate::{ffi, logger::Logger};
-use cxx::UniquePtr;
 use cudarc::driver::sys::{CUevent, CUstream};
+use cxx::UniquePtr;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub enum DataType {
@@ -36,7 +36,7 @@ pub enum DataType {
     // Signed 8-bit floating point with
     // 1 sign bit, 4 exponent bits, 3 mantissa bits, and exponent-bias 7.
     // \warning kFP8 is not supported yet and will result in an error or undefined behavior.
-    FP8 = 6
+    FP8 = 6,
 }
 
 impl DataType {
@@ -60,7 +60,7 @@ pub enum TensorIOMode {
     // Tensor is input to the engine.
     INPUT = 1,
     // Tensor is output by the engine.
-    OUTPUT = 2
+    OUTPUT = 2,
 }
 
 impl TensorIOMode {
@@ -195,7 +195,7 @@ pub enum TensorFormat {
 
     // Non-vectorized channel-last format. This format is bound to FP32.
     // It is only available for dimensions >= 4.
-    DHWC = 12
+    DHWC = 12,
 }
 
 pub enum EngineCapability {
@@ -236,9 +236,9 @@ pub enum HardwareCompatibilityLevel {
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub enum ProfilingVerbosity {
-    LAYERNAMESONLY = 0,     //< Print only the layer names. This is the default setting.
-    NONE = 1,               //< Do not print any layer information.
-    DETAILED = 2,           //< Print detailed layer information including layer names and layer parameters.
+    LAYERNAMESONLY = 0, //< Print only the layer names. This is the default setting.
+    NONE = 1,           //< Do not print any layer information.
+    DETAILED = 2, //< Print detailed layer information including layer names and layer parameters.
 }
 
 pub struct Runtime {
@@ -334,8 +334,10 @@ impl CudaEngine {
     }
 
     pub fn create_execution_context_without_device_memory(&mut self) -> Option<ExecutionContext> {
-        let context =
-            self.0.pin_mut().create_execution_context_without_device_memory();
+        let context = self
+            .0
+            .pin_mut()
+            .create_execution_context_without_device_memory();
         if context.is_null() {
             None
         } else {
@@ -587,7 +589,9 @@ mod tests {
                 runtime.logger().log(Severity::Info, msg.as_str());
             }
         } else {
-            runtime.logger().log(Severity::Info, "Engine file not found! Skip test!");
+            runtime
+                .logger()
+                .log(Severity::Info, "Engine file not found! Skip test!");
         }
     }
 }

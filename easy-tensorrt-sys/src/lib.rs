@@ -49,7 +49,9 @@ pub(crate) mod ffi {
 
         fn get_tensor_io_mode(self: &CudaEngine, name: &str) -> i32;
 
-        fn create_execution_context_without_device_memory(self: Pin<&mut CudaEngine>) -> UniquePtr<ExecutionContext>;
+        fn create_execution_context_without_device_memory(
+            self: Pin<&mut CudaEngine>,
+        ) -> UniquePtr<ExecutionContext>;
 
         fn get_device_memory_size(self: &CudaEngine) -> usize;
 
@@ -102,7 +104,11 @@ pub(crate) mod ffi {
 
         fn all_input_shapes_specified(self: &ExecutionContext) -> bool;
 
-        fn set_optimization_profile_async(self: Pin<&mut ExecutionContext>, profile_index: i32, stream: usize) -> bool;
+        fn set_optimization_profile_async(
+            self: Pin<&mut ExecutionContext>,
+            profile_index: i32,
+            stream: usize,
+        ) -> bool;
 
         fn set_enqueue_emits_profile(self: Pin<&mut ExecutionContext>, emits: bool);
 
@@ -110,11 +116,16 @@ pub(crate) mod ffi {
 
         fn report_to_profiler(self: Pin<&mut ExecutionContext>);
 
-        fn set_tensor_address(self: Pin<&mut ExecutionContext>, name: &str, address: usize) -> bool;
+        fn set_tensor_address(self: Pin<&mut ExecutionContext>, name: &str, address: usize)
+            -> bool;
 
         fn get_tensor_address(self: &ExecutionContext, name: &str) -> usize;
 
-        fn set_input_tensor_address(self: Pin<&mut ExecutionContext>, name: &str, address: usize) -> bool;
+        fn set_input_tensor_address(
+            self: Pin<&mut ExecutionContext>,
+            name: &str,
+            address: usize,
+        ) -> bool;
 
         fn get_output_tensor_address(self: &ExecutionContext, name: &str) -> usize;
 
