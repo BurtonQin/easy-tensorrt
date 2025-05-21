@@ -1,4 +1,15 @@
 [workspace]
-members = ["easy-tensorrt-sys", "easy-tensorrt-core", "easy-tensorrt-torch/easy-tensorrt-tch200"]
+members = [
+    "easy-tensorrt-sys", 
+    "easy-tensorrt-core",
+    "easy-tensorrt-torch/easy-tensorrt-tch200",
+    "easy-tensorrt-torch/easy-tensorrt-tch210",
+    "easy-tensorrt-torch/easy-tensorrt-tch220",
+    "easy-tensorrt-torch/easy-tensorrt-tch230",
+    "easy-tensorrt-torch/easy-tensorrt-tch240",
+    "easy-tensorrt-torch/easy-tensorrt-tch250",
+    "easy-tensorrt-torch/easy-tensorrt-tch260",
+    "easy-tensorrt-torch/easy-tensorrt-tch270"
+]
 
 resolver = "2"
