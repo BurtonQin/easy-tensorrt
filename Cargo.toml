@@ -1,0 +1,4 @@
+[workspace]
+members = ["easy-tensorrt-sys", "easy-tensorrt-core", "easy-tensorrt-torch/easy-tensorrt-tch200"]
+
+resolver = "2"
