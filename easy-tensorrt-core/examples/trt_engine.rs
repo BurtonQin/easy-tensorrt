@@ -1,9 +1,9 @@
-use easy_tensorrt_core::{init, TRTEngine, AbstractTensor};
-use easy_tensorrt_core::{DataType, TRTError};
-use cudarc::driver::{CudaSlice, CudaStream};
 use cudarc::driver::DevicePtr;
-use std::sync::Arc;
+use cudarc::driver::{CudaSlice, CudaStream};
+use easy_tensorrt_core::{init, AbstractTensor, TRTEngine};
+use easy_tensorrt_core::{DataType, TRTError};
 use half;
+use std::sync::Arc;
 
 pub enum CustomTensorStorage {
     Float(CudaSlice<f32>),
@@ -21,18 +21,22 @@ pub struct CustomTensor {
 
 impl AbstractTensor for CustomTensor {
     fn zeros(shape: &[i32], dtype: DataType, stream: &Arc<CudaStream>) -> Result<Self, TRTError>
-        where
-            Self: Sized {
+    where
+        Self: Sized,
+    {
         let len = shape.iter().product::<i32>() as usize;
         match dtype {
             DataType::FLOAT => {
                 let storage = CustomTensorStorage::Float(stream.alloc_zeros::<f32>(len)?);
-                return Ok(Self { storage, shape: shape.to_vec() });
-            },
+                return Ok(Self {
+                    storage,
+                    shape: shape.to_vec(),
+                });
+            }
             _ => return Err(TRTError::DTypeMismatch),
         }
     }
-    
+
     fn dtype(&self) -> DataType {
         use CustomTensorStorage::*;
         match &self.storage {
@@ -40,7 +44,7 @@ impl AbstractTensor for CustomTensor {
             _ => panic!("Unsupported data type"),
         }
     }
-    
+
     fn shape(&self) -> Vec<i32> {
         self.shape.clone()
     }
@@ -82,7 +86,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let guard = init::tensorrt_context_guard(device_ordinal)?;
     let stream = guard.default_stream();
 
-    let mut engine = TRTEngine::<CustomTensor>::new(&r"../model/model.trt".to_owned(), stream.clone())?;
+    let mut engine =
+        TRTEngine::<CustomTensor>::new(&r"../model/model.trt".to_owned(), stream.clone())?;
     engine.activate()?;
     engine.allocate_io_tensors()?;
     println!("{}", engine.info()?);
