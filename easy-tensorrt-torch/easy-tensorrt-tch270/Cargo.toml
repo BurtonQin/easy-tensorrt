@@ -1,6 +1,8 @@
+[workspace]
+
 [package]
 name = "easy-tensorrt-tch270"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 authors = ["Burton Qin <bobbqq@163.com>"]
 description = "Rust wrapper for NVIDIA TensorRT"
@@ -23,7 +25,7 @@ default = ["extension-module"]
 
 [dependencies]
 cudarc = { version = "0.16.3", features = ["driver", "cuda-version-from-build-system", "dynamic-linking", "std"], default-features=false }
-easy-tensorrt-core = { version = "0.2.0", path = "../../easy-tensorrt-core" }
+easy-tensorrt-core = "0.3.0"
 thiserror = "1"
 
 tch = { package = "tch", version = "0.20.0", features = ["python-extension"] }

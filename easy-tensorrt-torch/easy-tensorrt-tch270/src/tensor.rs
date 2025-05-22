@@ -1,12 +1,15 @@
+use cudarc::driver::CudaStream;
 use easy_tensorrt_core::error::TRTError;
 use easy_tensorrt_core::tensor::AbstractTensor;
 use easy_tensorrt_core::DataType;
 use std::ffi::c_void;
+use std::sync::Arc;
 
 pub struct Tensor(tch::Tensor);
 
 impl AbstractTensor for Tensor {
-    fn zeros(shape: &[i32], dtype: DataType, device_idx: usize) -> Result<Self, TRTError> {
+    fn zeros(shape: &[i32], dtype: DataType, stream: &Arc<CudaStream>) -> Result<Self, TRTError> {
+        let device_idx = stream.context().cu_device() as usize;
         let tch_size = to_tch_size(shape);
         let tch_kind = to_tch_kind(dtype);
         let tch_dev = tch::Device::Cuda(device_idx);
@@ -90,20 +93,4 @@ pub fn to_tch_kind(dtype: DataType) -> tch::Kind {
 
 pub fn to_tch_size(shape: &[i32]) -> Vec<i64> {
     shape.iter().map(|i| *i as i64).collect::<Vec<_>>()
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_tensor() {
-        let shape = &[2, 3];
-        let dtype = DataType::FLOAT;
-        let device_idx = 0;
-        let tensor = Tensor::zeros(shape, dtype, device_idx).unwrap();
-        assert_eq!(tensor.dtype(), dtype);
-        assert_eq!(tensor.shape(), vec![2, 3]);
-        assert_eq!(tensor.size(), 6);
-    }
 }

@@ -9,7 +9,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let guard = init::tensorrt_context_guard(device_ordinal)?;
     let stream = guard.default_stream();
 
-    let mut engine = TchTrtEngine::new(&r"model.trt".to_owned(), stream)?;
+    let mut engine = TchTrtEngine::new(&r"../../model/model.trt".to_owned(), stream)?;
 
     println!("{}", engine.info()?);
 

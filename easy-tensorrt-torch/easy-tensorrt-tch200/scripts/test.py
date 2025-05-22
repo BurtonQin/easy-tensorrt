@@ -9,7 +9,7 @@ def main():
     env = easy_trt.CudaTRTEnvWrapper(0)
     trt_engine = easy_trt.TchTrtEngineWrapper(
         env,
-        r"model.engine",
+        r"../../model/model.trt",
     )
     print(trt_engine.info())
     inputs1 = torch.zeros([2, 3, 512, 512]).cuda()
