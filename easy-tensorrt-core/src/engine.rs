@@ -73,7 +73,6 @@ impl<T: AbstractTensor> TRTEngine<T> {
         };
 
         let num_io_tensors = engine.get_num_io_tensors();
-        let cuda_idx = self.stream.context().ordinal();
         for i in 0..num_io_tensors {
             let name = engine.get_io_tensor_name(i);
             let shape = engine.get_tensor_shape(name);
@@ -86,7 +85,7 @@ impl<T: AbstractTensor> TRTEngine<T> {
                 return Err(TRTError::ShapeError(shape.clone()));
             }
             let dtype = engine.get_tensor_dtype(name);
-            let tensor = T::zeros(&shape, dtype, cuda_idx)?;
+            let tensor = T::zeros(&shape, dtype, &self.stream)?;
             let ptr = tensor.data_ptr();
             self.tensors.push(tensor);
             if !context.set_tensor_address(name, ptr as _) {

@@ -1,6 +1,6 @@
 [package]
 name = "easy-tensorrt-core"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Burton Qin <bobbqq@163.com>"]
 description = "Rust wrapper for NVIDIA TensorRT"
 repository = "https://github.com/BurtonQin/easy-tensorrt"
@@ -11,6 +11,10 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-cudarc = { version = "0.16.3", features = ["driver", "cuda-version-from-build-system", "dynamic-linking", "std"], default-features = false }
+cudarc = { version = "0.16.3", features = ["driver", "cuda-version-from-build-system", "dynamic-linking", "std", "f16"], default-features = false }
 easy-tensorrt-sys = { version = "0.2.0", path = "../easy-tensorrt-sys", default-features = false }
 thiserror = "1"
+half = { version = "2.4.1", default-features = false, features = [
+    "num-traits",
+    "rand_distr",
+] }

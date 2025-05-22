@@ -1,12 +1,14 @@
 use crate::error::TRTError;
+use cudarc::driver::CudaStream;
 use easy_tensorrt_sys::runtime::DataType;
 use std::ffi::c_void;
+use std::sync::Arc;
 
 /// Trait for tensor abstraction.
 /// Any Tensor (e.g., tch::Tensor) that implements this trait can be used in TRTEngine.
 pub trait AbstractTensor {
     /// Creates a new tensor with zeros.
-    fn zeros(shape: &[i32], dtype: DataType, device_idx: usize) -> Result<Self, TRTError>
+    fn zeros(shape: &[i32], dtype: DataType, stream: &Arc<CudaStream>) -> Result<Self, TRTError>
     where
         Self: Sized;
     /// Data type of the tensor.
