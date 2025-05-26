@@ -1,6 +1,6 @@
 [package]
 name = "easy-tensorrt-core"
-version = "0.3.0"
+version = "0.3.1"
 authors = ["Burton Qin <bobbqq@163.com>"]
 description = "Rust wrapper for NVIDIA TensorRT"
 repository = "https://github.com/BurtonQin/easy-tensorrt"
