@@ -12,7 +12,7 @@ edition = "2021"
 
 [dependencies]
 cudarc = { version = "0.16.3", features = ["driver", "cuda-version-from-build-system", "dynamic-linking", "std", "f16"], default-features = false }
-easy-tensorrt-sys = { version = "0.2.0", path = "../easy-tensorrt-sys", default-features = false }
+easy-tensorrt-sys = { version = "0.2.1", path = "../easy-tensorrt-sys", default-features = false }
 thiserror = "1"
 half = { version = "2.4.1", default-features = false, features = [
     "num-traits",
