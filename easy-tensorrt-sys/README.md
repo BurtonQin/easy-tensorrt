@@ -45,6 +45,8 @@ $env:TENSORRT_LIB_PATH = "C:\Program Files\NVIDIA GPU Computing Toolkit\TensorRT
 
 - Tested on Linux, with TensorRT 8.6.1.6, CUDA 11.8.
 
+- Tested on Windows, with TensorRT 10.10.0.31, CUDA 12.8.
+
 - Other platforms or versions are not guaranteed to work.
 
 ## Contributions
