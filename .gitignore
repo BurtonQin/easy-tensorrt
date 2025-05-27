@@ -17,3 +17,20 @@ target/
 #.idea/
 
 model/
+
+# Ignore Python bytecode files
+*.pyc
+*.pyd
+__pycache__/
+
+# Ignore virtual environment directories
+env/
+venv/
+ENV/
+VENV/
+
+# Ignore other common artifacts
+*.egg-info/
+dist/
+build/
+*.log

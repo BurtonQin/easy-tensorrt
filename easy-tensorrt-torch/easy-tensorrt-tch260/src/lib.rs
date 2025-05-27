@@ -3,9 +3,8 @@ pub mod tensor;
 use crate::init::TRTContextGuard;
 use easy_tensorrt_core::init;
 pub use engine::TchTrtEngine;
+use pyo3::prelude::*;
 use pyo3::exceptions::PyRuntimeError;
-use pyo3::types::PyModule;
-use pyo3::{pyclass, pymethods, pymodule, PyResult, Python};
 use pyo3_tch::PyTensor;
 pub use tensor::Tensor;
 
@@ -59,7 +58,7 @@ impl TchTrtEngineWrapper {
 }
 
 #[pymodule]
-fn easy_tensorrt_tch260(_py: Python, m: &PyModule) -> PyResult<()> {
+fn easy_tensorrt_tch260(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_class::<CudaTRTEnvWrapper>()?;
     m.add_class::<TchTrtEngineWrapper>()?;
     Ok(())

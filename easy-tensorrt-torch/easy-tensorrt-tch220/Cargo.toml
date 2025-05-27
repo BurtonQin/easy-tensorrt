@@ -25,7 +25,7 @@ default = ["extension-module"]
 
 [dependencies]
 cudarc = { version = "0.16.3", features = ["driver", "cuda-version-from-build-system", "dynamic-linking", "std"], default-features=false }
-easy-tensorrt-core = "0.3.0"
+easy-tensorrt-core = "0.3.1"
 thiserror = "1"
 
 tch = { package = "tch", version = "0.15.0", features = ["python-extension"] }

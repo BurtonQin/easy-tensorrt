@@ -4,8 +4,7 @@ use crate::init::TRTContextGuard;
 use easy_tensorrt_core::init;
 pub use engine::TchTrtEngine;
 use pyo3::exceptions::PyRuntimeError;
-use pyo3::types::PyModule;
-use pyo3::{pyclass, pymethods, pymodule, PyResult, Python};
+use pyo3::prelude::*;
 use pyo3_tch::PyTensor;
 pub use tensor::Tensor;
 
@@ -30,7 +29,11 @@ pub struct TchTrtEngineWrapper(TchTrtEngine);
 impl TchTrtEngineWrapper {
     #[new]
     pub fn new(env: &CudaTRTEnvWrapper, path: &str) -> PyResult<Self> {
-        let stream = env.0.default_stream();
+        // let stream = env.0.default_stream();
+        let stream = env
+            .0
+            .new_stream()
+            .map_err(|e| PyRuntimeError::new_err(format!("{e:?}")))?;
         let engine = TchTrtEngine::new(&path.to_owned(), stream)
             .map_err(|e| PyRuntimeError::new_err(format!("{e:?}")))?;
         Ok(Self(engine))
@@ -59,7 +62,7 @@ impl TchTrtEngineWrapper {
 }
 
 #[pymodule]
-fn easy_tensorrt_tch270(_py: Python, m: &PyModule) -> PyResult<()> {
+fn easy_tensorrt_tch270(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_class::<CudaTRTEnvWrapper>()?;
     m.add_class::<TchTrtEngineWrapper>()?;
     Ok(())
