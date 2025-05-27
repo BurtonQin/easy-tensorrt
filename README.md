@@ -6,6 +6,8 @@ Seamless TensorRT integration with PyTorch or cudarc in Rust
 
 See [easy-tensorrt-sys/README](easy-tensorrt-sys/README.md) for installation.
 
+For PyTorch integration, see [easy-tensorrt-torch/README](easy-tensorrt-torch/README.md) for installation.
+
 ## easy-tensort-sys
 
 A binding for TensorRT's C++ API. Forked from [tensorrt-rs-sys](https://github.com/vivym/tensorrt-rs/tree/main/tensorrt-rs-sys)
